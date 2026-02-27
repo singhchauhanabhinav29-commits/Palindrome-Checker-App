@@ -1,34 +1,38 @@
 /**
  * ============================================================
- * MAIN CLASS - UseCase12PalindromeCheckerApp
+ * MAIN CLASS - UseCase13PalindromeCheckerApp
  * ============================================================
  *
- * Use Case 12: Strategy Pattern for Palindrome Algorithms
+ * Use Case 13: Performance Comparison
  *
  * Description:
- * This class demonstrates how different palindrome
- * validation algorithms can be selected dynamically
- * at runtime using the Strategy Design Pattern.
+ * This class measures and compares the execution
+ * performance of palindrome validation algorithms.
  *
  * At this stage, the application:
- * - Defines a common PalindromeStrategy interface
- * - Implements a concrete Stack based strategy
- * - Injects the strategy at runtime
- * - Executes the selected algorithm
+ * - Uses a palindrome strategy implementation
+ * - Captures execution start and end time
+ * - Calculates total execution duration
+ * - Displays benchmarking results
  *
- * No performance comparison is done in this use case.
- * The focus is purely on algorithm interchangeability.
+ * This use case focuses purely on performance
+ * measurement and algorithm comparison.
  *
- * The goal is to teach extensible algorithm design.
+ * The goal is to introduce benchmarking concepts.
  *
  * @author Developer
- * @version 12.0
+ * @version 13.0
  */
 
 import java.util.Scanner;
 
 public class PalindromeCheckerApp {
 
+    /**
+     * Application entry point for UC13.
+     *
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -36,67 +40,51 @@ public class PalindromeCheckerApp {
         System.out.print("Enter text: ");
         String input = scanner.nextLine();
 
-        // Inject strategy dynamically
-        PalindromeStrategy strategy = new StackStrategy();
+        // Using simple two-pointer strategy
+        PalindromeStrategy strategy = new TwoPointerStrategy();
+
+        // Capture start time
+        long startTime = System.nanoTime();
 
         boolean isPalindrome = strategy.check(input);
 
+        // Capture end time
+        long endTime = System.nanoTime();
+
+        // Calculate execution duration
+        long duration = endTime - startTime;
+
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
+        System.out.println("Execution Time : " + duration + " ns");
 
         scanner.close();
     }
 }
 
 /**
- * ============================================================
- * INTERFACE - PalindromeStrategy
- * ============================================================
- *
- * This interface defines a contract for all
- * palindrome checking algorithms.
- *
- * Any new algorithm must implement this interface
- * and provide its own validation logic.
+ * Strategy interface for palindrome validation.
  */
 interface PalindromeStrategy {
     boolean check(String input);
 }
 
 /**
- * ============================================================
- * CLASS - StackStrategy
- * ============================================================
- *
- * This class provides a Stack based implementation
- * of the PalindromeStrategy interface.
- *
- * It uses LIFO behavior to reverse characters
- * and compare them with the original sequence.
+ * Two-pointer implementation for performance test.
  */
-class StackStrategy implements PalindromeStrategy {
+class TwoPointerStrategy implements PalindromeStrategy {
 
-    /**
-     * Implements palindrome validation using Stack.
-     *
-     * @param input String to validate
-     * @return true if palindrome, false otherwise
-     */
     public boolean check(String input) {
 
-        // Create a stack to store characters
-        java.util.Stack<Character> stack = new java.util.Stack<>();
+        int start = 0;
+        int end = input.length() - 1;
 
-        // Push each character
-        for (char c : input.toCharArray()) {
-            stack.push(c);
-        }
-
-        // Compare characters by popping
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) {
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
                 return false;
             }
+            start++;
+            end--;
         }
 
         return true;
