@@ -1,71 +1,41 @@
 /**
  * ============================================================
- * MAIN CLASS - UseCase8PalindromeCheckerApp
+ * MAIN CLASS - UseCase1PalindromeCheckerApp
  * ============================================================
  *
- * Use Case 8: Linked List Based Palindrome Checker
+ * Use Case 1: Application Entry & Welcome Message
  *
  * Description:
- * This class checks whether a string is a palindrome
- * using a LinkedList.
+ * This class represents the entry point of the
+ * Palindrome Checker Management System.
  *
- * Characters are added to the list and then compared
- * by removing elements from both ends:
+ * At this stage, the application:
+ * - Starts execution from the main() method
+ * - Displays a welcome message
+ * - Shows application version
  *
- * - removeFirst()
- * - removeLast()
+ * No palindrome logic is implemented yet.
  *
- * This demonstrates how LinkedList supports
- * double-ended operations for symmetric validation.
+ * The goal is to establish a clear startup flow.
  *
  * @author Developer
- * @version 8.0
+ * @version 1.0
  */
-
-import java.util.LinkedList;
-import java.util.Scanner;
 
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC8.
+     * Application entry point.
+     *
+     * This is the first method executed by the JVM
+     * when the program starts.
      *
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
 
-        // Step 1: Create Scanner object
-        Scanner scanner = new Scanner(System.in);
-
-        // Step 2: Accept user input
-        System.out.print("Enter text: ");
-        String input = scanner.nextLine();
-
-        // Step 3: Create LinkedList to store characters
-        LinkedList<Character> list = new LinkedList<>();
-
-        // Step 4: Add each character to the linked list
-        for (char c : input.toCharArray()) {
-            list.add(c);
-        }
-
-        // Step 5: Assume palindrome initially
-        boolean isPalindrome = true;
-
-        // Step 6: Compare until only one or zero elements remain
-        while (list.size() > 1) {
-
-            if (!list.removeFirst().equals(list.removeLast())) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        // Step 7: Display result
-        System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + isPalindrome);
-
-        // Step 8: Close scanner
-        scanner.close();
+        System.out.println("Welcome to the Palindrome Checker Management System");
+        System.out.println("Version : 1.0");
+        System.out.println("System initialized successfully.");
     }
 }
